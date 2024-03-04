@@ -29,10 +29,10 @@ class StudentController extends Controller
    }
    public function assignSubjects(Request $request)
 {
-    $studentId = $request->input('student_ID');
+    $studentId = $request->input('reg_ID');
     $subjectId = $request->input('subject_ID');
 
-    $studentSubject = new Subjectstudent;
+    $studentSubject = new Subjectstudent();
     $studentSubject->reg_ID = $studentId;
     $studentSubject->subject_ID = $subjectId;
     $studentSubject->save();

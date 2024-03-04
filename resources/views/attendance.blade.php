@@ -7,39 +7,28 @@
                 {{ session('success') }}
             </div>
         @endif
-        <br><br>
-        <form action="{{ route('attendance.store') }}" method="POST">
-            @csrf
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>Student ID</th>
-                        <th>Subject Code</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($subjectstudents as $subjectstudent)
-                        <tr>
-                            <td>{{ $subjectstudent->reg_ID }}</td>
-                            <td>{{ $subjectstudent->subject_ID }}</td>
-                            <td>
-                                <input type="date" name="date[]" class="form-control" required>
-                            </td>
-                            <td>
-                                <select name="status[{{ $subjectstudent->reg_ID }}_{{ $subjectstudent->subject_ID }}]" class="form-control">
-                                    <option value="Present">Present</option>
-                                    <option value="Absent">Absent</option>
-                                </select>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            <button type="submit" class="btn btn-primary bg-success">Submit</button>
-        </form>
-        <br>
-        <br>
+        <a href="{{ route('takeattendance') }}"><button type="button" class="btn btn-success bg-success mt-5">Add</button></a>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Student ID</th>
+                    <th>Subject ID</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach($attendances as $index => $attendance)
+                <tr>
+                    <td scope="col">{{ $index + 1 }}</td>
+                    <td>{{ $attendance->reg_ID }}</td>
+                    <td>{{ $attendance->subject_ID }}</td>
+                    <td>{{ $attendance->date }}</td>
+                    <td>{{ $attendance->status }}</td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
     </div>
 @endsection

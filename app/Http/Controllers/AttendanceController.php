@@ -15,26 +15,28 @@ class AttendanceController extends Controller
     $students = Student::all();
     $subjects = Subject::all();
     $subjectstudents = Subjectstudent::all();
-    $attendances = Attendance::all(); // Assuming you have an Attendance model
+    $attendances = Attendance::all(); 
 
     return view('attendance', compact('subjects', 'students', 'subjectstudents','attendances'));
 }
+
+
 public function store(Request $request)
 {
-    $dateArray = $request->input('date');
-    $statusArray = $request->input('status');
-
-    foreach ($dateArray as $key => $date) {
-        if (isset($statusArray[$key])) {
-            $attendance = new Attendance();
-            $attendance->reg_ID = $key;
-            $attendance->subject_ID = $statusArray[$key]; // Assign the subject ID (if needed)
-            $attendance->date = $date;
-            $attendance->status = $statusArray[$key]; // Assign the status value
-            $attendance->save();
-        }
-    }
+    $attendance = new Attendance();
+    $attendance->reg_ID = $request->input('reg_ID');
+    $attendance->subject_ID = $request->input('subject_ID');
+    $attendance->date = $request->input('date');
+    $attendance->status = $request->input('status');
+    $attendance->save();
 
     return redirect()->route('attendance.index')->with('success', 'Attendance added successfully');
+}
+public function create()
+{
+
+    $subjectStudents = Subjectstudent::all();
+
+    return view('takeattendance', compact('subjectStudents'));
 }
 }

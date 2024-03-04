@@ -44,6 +44,7 @@ Route::POST('/addsubject',[SubjectController::class,'store'])->name('subject.sto
 
 Route::get('/attendance',[AttendanceController::class,'index'])->name('attendance.index');
 Route::POST('/attendance',[AttendanceController::class,'store'])->name('attendance.store');
+Route::get('/takeattendance',[AttendanceController::class,'create'])->name('takeattendance');
 
 
 require __DIR__.'/auth.php';
